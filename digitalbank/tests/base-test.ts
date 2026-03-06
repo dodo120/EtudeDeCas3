@@ -5,6 +5,7 @@ import { HomePage } from './pages/home-page';
 import { WireTransferPage } from './pages/wire-transfer-page';
 import { BillsPage } from './pages/bills-page';
 import { SecurityPage } from './pages/security-page';
+import AxeBuilder from '@axe-core/playwright';
 
 type FixturesPage = {
     loginPage: LoginPage;
@@ -39,6 +40,30 @@ export const test = base.extend<FixturesPage>({
     securityPage: async ({ page }, use) => {
         const securityPage = new SecurityPage(page);
         await use(securityPage);
+    },
+});
+
+type AxeFixture = {
+    makeAxeBuilder: () => AxeBuilder;
+    homePage: HomePage;
+    loginPage: LoginPage;
+};
+
+export const accessibilityTest = base.extend<AxeFixture>({
+    makeAxeBuilder: async ({ page }, use) => {
+        const makeAxeBuilder = () => new AxeBuilder({ page })
+            .withTags(['wcag2a','wcag2aa']);
+        
+            await use(makeAxeBuilder);
+    },
+    homePage: async ({ page }, use) => {
+        const homePage = new HomePage(page);
+        await use(homePage);
+    },
+
+    loginPage: async ({ page }, use) => {
+        const loginPage = new LoginPage(page);
+        await use(loginPage);
     },
 });
 
