@@ -2,9 +2,9 @@ name: Playwright CI
 
 on:
   push:
-    branches: [ main, master, sprint/* ]
+    branches: [ main, master, sprint-0, sprint-1, sprint-2, sprint-3, sprint-4, sprint-5 ]
   pull_request:
-    branches: [ main, master, sprint/* ]
+    branches: [ main, master, sprint-0, sprint-1, sprint-2, sprint-3, sprint-4, sprint-5 ]
 
 concurrency:
   group: playwright-${{ github.ref }}
