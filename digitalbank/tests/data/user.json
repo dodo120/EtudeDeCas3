@@ -1,0 +1,38 @@
+{
+    "StandardAccount": {
+        "id":3,
+        "email": "test@digitalbank.fr",
+        "password": "Test1234!",
+        "phone":"+33 6 00 00 00 00",
+        "name":"Utilisateur Test",
+        "accounts": {
+          "Compte Courant": {
+            "balance": "5 000,00€",
+            "lastTransaction": {
+              "description": "Virement reçu - Salaire",
+              "date": "10 janvier 2025",
+              "amount": "+3 200,00 €"
+            }
+          },
+          "Livret A": {
+            "balance": "15 000,00€",
+            "lastTransaction": null
+          }
+        }
+      },
+    "TwoFAAccount": {
+        "id":2,
+        "email": "marie.martin@email.com",
+        "password": "SecurePass456!",
+        "2fa_code": "123456"
+    },
+    "AdditionalAccount": {
+        "id":1,
+        "email": "jean.dupont@email.com",
+        "password": "Password123!"
+    },
+    "InvalidAccount": {
+        "email": "toto@tata.com",
+        "password": "totoTata!"
+    }
+}
