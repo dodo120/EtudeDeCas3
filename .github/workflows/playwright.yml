@@ -42,11 +42,11 @@ jobs:
 
       # 5 Run Smoke Tests (bloque si KO)
       - name: Run Smoke Tests
-        run: npx playwright test --project=SmokeTest
+        run: npx playwright test --project=SmokeTest --reporter=json
 
       # 6 Run Full Test Suite
       - name: Run Test Suite
-        run: npx playwright test --project=TestSuite
+        run: npx playwright test --project=TestSuite --reporter=json
 
       # 7 Upload HTML Report (toujours)
       - name: Upload Playwright Report
@@ -56,3 +56,11 @@ jobs:
           name: playwright-report
           path: digitalbank/playwright-report
           retention-days: 30
+      # 8 Create Issue if tests failed
+      - name: Create GitHub Issue on Failure
+        if: failure()
+        uses: peter-evans/create-issue-from-file@v6
+        with:
+          title: "E2E Tests Failed on ${{ github.ref }}"
+          content-filepath: digitalbank/playwright-report/test-results.json
+          labels: bug, e2e-tests
