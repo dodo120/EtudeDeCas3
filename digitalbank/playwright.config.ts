@@ -51,7 +51,14 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'firefox',
+      name: 'SmokeTest',
+      testMatch: /.*smoke-test.spec.ts/,
+      use: { ...devices['Desktop Firefox'] },
+    },
+
+    {
+      name: 'TestSuite',
+      testIgnore: /.*smoke-test.spec.ts/,
       use: { ...devices['Desktop Firefox'] },
     },
   ],

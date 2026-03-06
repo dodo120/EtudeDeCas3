@@ -1,25 +1,58 @@
-name: Playwright Tests
+name: Playwright CI
+
 on:
   push:
-    branches: [ main, master, sprint-0, sprint-1 ]
+    branches: [ main, master, sprint/* ]
+  pull_request:
+    branches: [ main, master, sprint/* ]
+
+concurrency:
+  group: playwright-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    timeout-minutes: 60
+  playwright:
+    name: E2E Tests
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: digitalbank
+
     steps:
-    - uses: actions/checkout@v5
-    - uses: actions/setup-node@v5
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      # 1 Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2 Setup Node
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+          cache-dependency-path: digitalbank/package-lock.json
+
+      # 3 Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 4 Install Playwright browsers (only if not cached)
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      # 5 Run Smoke Tests (bloque si KO)
+      - name: Run Smoke Tests
+        run: npx playwright test --project=SmokeTest
+
+      # 6 Run Full Test Suite
+      - name: Run Test Suite
+        run: npx playwright test --project=TestSuite
+
+      # 7 Upload HTML Report (toujours)
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: digitalbank/playwright-report
+          retention-days: 30
