@@ -10,6 +10,26 @@ test.beforeEach(async ({ page, loginPage, homePage }) => {
     await homePage.navigateToSecurityTab();
 });
 
+test.describe('DigitalBank Security Tests : Edit Password', () => {
+
+    test('Edit password and login', async ({ loginPage, homePage, securityPage }) => {
+        //Change password
+        const userData = user.StandardAccount;
+        const newPassword = Utils.randomPassword();
+        await securityPage.editPassword(userData.password, newPassword);
+
+        //Déconnexion
+        await homePage.logout();
+
+        //Login with new password
+        await loginPage.login(userData.email, newPassword);
+
+        //Home page
+        await homePage.getWelcomeMessageText();
+    });
+
+});
+
 test.describe('DigitalBank Security Tests : Personal Information', () => {
 
     test('Check Personal Information', async ({ securityPage }) => {
