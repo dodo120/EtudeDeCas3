@@ -4,6 +4,7 @@ import { ResetPasswordPage } from './pages/reset-password-page';
 import { HomePage } from './pages/home-page';
 import { WireTransferPage } from './pages/wire-transfer-page';
 import { BillsPage } from './pages/bills-page';
+import { SecurityPage } from './pages/security-page';
 
 type FixturesPage = {
     loginPage: LoginPage;
@@ -11,6 +12,7 @@ type FixturesPage = {
     homePage: HomePage;
     wireTransferPage: WireTransferPage;
     billsPage: BillsPage;
+    securityPage: SecurityPage;
 };
 
 export const test = base.extend<FixturesPage>({
@@ -33,6 +35,10 @@ export const test = base.extend<FixturesPage>({
      billsPage: async({ page }, use) => {
         const billsPage = new BillsPage(page);
         await use (billsPage);
+    },
+    securityPage: async ({ page }, use) => {
+        const securityPage = new SecurityPage(page);
+        await use(securityPage);
     },
 });
 
