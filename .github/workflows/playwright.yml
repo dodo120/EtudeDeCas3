@@ -54,5 +54,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: digitalbank/playwright-report/index.html
+          path: digitalbank/playwright-report/
           retention-days: 30
