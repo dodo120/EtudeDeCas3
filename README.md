@@ -48,7 +48,7 @@ JEFF-Bank/
 ### 1. Cloner le dépôt
 ```bash
 git clone https://github.com/dodo120/EtudeDeCas3.git
-cd EtudeDeCas3
+cd EtudeDeCas3/digitalbank
 ```
 
 ### 2. Installer les dépendances
@@ -177,9 +177,3 @@ Pipeline exécutée à chaque push ou pull request pour assurer la qualité du c
 | 3 | Factures |
 | 4 | Paramètres sécurité + changement mot de passe |
 | 5 | Accessibilité + smoke suite complète |
-
----
-
-## Dépôt GitHub
-https://github.com/dodo120/EtudeDeCas3
-
