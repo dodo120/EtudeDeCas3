@@ -1,0 +1,6 @@
+{
+    "resetPassword" : {
+        "error":"Aucun compte associé à cette adresse email",
+        "success":"Un lien de réinitialisation a été envoyé à {{email}}"
+    }
+}
