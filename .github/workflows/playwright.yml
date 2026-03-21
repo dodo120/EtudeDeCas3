@@ -56,11 +56,3 @@ jobs:
           name: playwright-report
           path: digitalbank/playwright-report/index.html
           retention-days: 30
-      # 8 Create Issue if tests failed
-      - name: Create GitHub Issue on Failure
-        if: failure()
-        uses: peter-evans/create-issue-from-file@v6
-        with:
-          title: "E2E Tests Failed on ${{ github.ref }}"
-          content-filepath: digitalbank/playwright-report/index.html
-          labels: bug, e2e-tests
